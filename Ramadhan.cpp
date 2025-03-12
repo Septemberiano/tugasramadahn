@@ -1,7 +1,7 @@
 #include <iostream>
 #include <iomanip>
 using namespace std;
-
+    bool sorting;
 int antrian[100], jumlahjamaah = 0, k = 0, viacari, metodecari, sortingmenurut, metodesort, urutan;
 bool valid = false;
 
@@ -67,9 +67,9 @@ void inputmakan() {
             valid = true;
         }
     } while (!valid);
-    cin.ignore();
+   
     cout << "Masukan menu takjil : ";
-    getline(cin, takjil.namamenu);
+    getline(cin>>ws, takjil.namamenu);
     do {
         cout << "Jumlah takjil : ";
         cin >> takjil.jumlah;
@@ -141,37 +141,61 @@ void datajamaah() {
 
 }
 
-void metodecariint(){
+void metodecarinimtidakurut(){
+    bool found ;
+    int i,y;
     cout<<"[PENCARIAN DATA PENERIMA TAKJIL]\n";
     cout<<"Pilih metode pencarian :\n";
     cout<<"1. Metode Sequential Sentinel\n";
     cout<<"2. Metode Sequential Non-Sentinel\n";
-    cout<<"3. Metode Binary\n";
     cout<<"Pilih metode : "; cin>>metodecari;
     switch (metodecari) {
         case 1:
-        if (metodecari == 1){
-
-        } else if (metodecari == 2) {
-
+       cout<<"Nim Jamaah : "; cin>>y;
+       pengambil[jumlahjamaah-1].nim == y;
+        found = false;
+        i=0;
+        while (!found)
+        {
+            if (pengambil[i].nim == y)
+            { found = true;
+                
+            }
+            else{
+                i=i++;
+            }
+           
         }
+         if(i == jumlahjamaah) {cout<<"tidak ada jamaah dengan nim "<< y << "dalam data masjid "<<endl;}
+            else{
+            cout<<"data ditemukan \n";
+            cout<<"Nama Jamaah : "<<pengambil[i].nama;
+            cout<<"Jurusan Jamaah : "<< pengambil[i].jurusan;
+            }
+        
         break;
 
         case 2:
-        if (metodecari == 1){
-
-        } else if (metodecari == 2) {
-            
-        }
+         found = false;
+         i=0;
+         while ( (i < jumlahjamaah) && (!found) )
+         {
+            if (pengambil[i].nim == y)
+            {
+                found = true;
+            }
+            else {
+                i = i+1;
+            }
+         }
+          if(found) {cout<<"tidak ada jamaah dengan nim "<< y << "dalam data masjid "<<endl;}
+            else{
+            cout<<"data ditemukan \n";
+            cout<<"Nama Jamaah : "<<pengambil[i].nama;
+            cout<<"Jurusan Jamaah : "<< pengambil[i].jurusan;
+            }
         break;
 
-        case 3:
-        if (metodecari == 1){
-
-        } else if (metodecari == 2) {
-            
-        }
-        break;
 
         default:
         break;
@@ -183,15 +207,14 @@ void searchingjamaah(){
     cout<<"Pilih Via Pencarian :\n";
     cout<<"1. Cari melalui Nomor Antrian penerima takjil\n";
     cout<<"2. Cari melalui NIM penerima takjil\n";
-    cout<<"3. Cari melalui Nama penerima takjil\n";
     cout<<"Pilihan Admin : "; cin>>viacari;
     switch(viacari){
         case 1:
-        metodecariint();
+       
         break;
 
         case 2:
-        metodecariint();
+        metodecarinimtidakurut();
         break;
 
         case 3:
@@ -427,6 +450,7 @@ void antrianquickdesc(int awal, int akhir) {
 }
 
 void sortingjamaah(){
+
     cout<<"[SORTIR DATA PENERIMA TAKJIL]\n";
     cout<<"Pilihan menu sorting data penerima :\n";
     cout<<"1. Sorting menurut Nomor Antrian penerima\n";
@@ -649,6 +673,7 @@ void sortingjamaah(){
 
 
 int main() {
+    system("cls");
     string username, pass;
     bool login = false;
     int chance = 4, menu, piladmin;
