@@ -1,7 +1,7 @@
 #include <iostream>
 #include <iomanip>
 using namespace std;
-    bool sorting;
+
 int antrian[100], jumlahjamaah = 0, k = 0, viacari, metodecari, sortingmenurut, metodesort, urutan;
 bool valid = false;
 
@@ -67,9 +67,9 @@ void inputmakan() {
             valid = true;
         }
     } while (!valid);
-   
+    cin.ignore();
     cout << "Masukan menu takjil : ";
-    getline(cin>>ws, takjil.namamenu);
+    getline(cin, takjil.namamenu);
     do {
         cout << "Jumlah takjil : ";
         cin >> takjil.jumlah;
@@ -140,239 +140,38 @@ void datajamaah() {
     }
 
 }
-bool ditemukan=false;
-void metodenourut(){
-    int nourutjam,b,n,h;
- cout<<"[PENCARIAN DATA PENERIMA TAKJIL Terurut]\n";
-    cout<<"Pilih metode pencarian :\n";
-    cout<<"1. Metode Sequential Sentinel\n";
-    cout<<"2. Metode Sequential Non-Sentinel\n";
-    cout<<"3.Binary\n";
-    cout<<"Pilih metode : "; cin>>metodecari;
-    
-    switch (metodecari)
-    {
-    case 1:
-        cout<<"masukan nomor antrian\n";cin>>nourutjam;
-        while (!ditemukan && mentah[b].noantrian<nourutjam)
-            b++;
-            if (nourutjam>jumlahjamaah)
-            {
-                   cout<<"data jamaah tidak ditemukan\n";
-            }
-            else{
-                if (mentah[b].noantrian == nourutjam)
-                {
-                    cout<<"data ditemukan\n";
-               cout<<"Nama Jamaah : "<<mentah[b].nama<<endl;
-              cout<<"Jurusan Jamaah : "<< mentah[b].jurusan<<endl;
-                }
-                else cout<<"data jamaah tidak ditemukan\n";
-            }
-        break;
-        case 2:
-         while ((b<jumlahjamaah) && (!ditemukan) && (nourutjam>=mentah[b].noantrian))
-        {
-            if (mentah[b].noantrian == nourutjam)
-            {
-                ditemukan = true;
-            }
-            else{
-                b++;
-            }
-            
-        }
-        if (ditemukan)
-        {
-            cout<<"data ditemukan\n";
-               cout<<"Nama Jamaah : "<<mentah[b].nama<<endl;
-            cout<<"Jurusan Jamaah : "<< mentah[b].jurusan<<endl;
-        }
-        else{
-             cout<<"tidak ada data yang dicari";
-        }
-        break;
-        case 3 :
-        b=0;
-        n=jumlahjamaah;
-        while ((!ditemukan) && (b<= n))
-        {
-            h= (b+n) /2;
-            if ( nourutjam == mentah[h].noantrian)
-            {
-                ditemukan = true;
-            }
-            else{
-                if (nourutjam < mentah[h].noantrian)
-                {
-                    b=h-1;
-                }
-                else{
-                    b=n+1;
-                }
-                
-            }
-        }
-        if (ditemukan)
-        {
-            cout<<"data ditemukan\n";
-               cout<<"Nama Jamaah : "<<mentah[b].nama<<endl;
-            cout<<"Jurusan Jamaah : "<< mentah[b].jurusan<<endl;
-        }
-        else{
-             cout<<"tidak ada data yang dicari";
-        }
 
-        break;
-    default:
-        break;
-    }
-}
-void metodecarinimurut(){
-    
-    int j=0,t,l;
- cout<<"[PENCARIAN DATA PENERIMA TAKJIL Terurut]\n";
-    cout<<"Pilih metode pencarian :\n";
-    cout<<"1. Metode Sequential Sentinel\n";
-    cout<<"2. Metode Sequential Non-Sentinel\n";
-    cout<<"3.Binary\n";
-    cout<<"Pilih metode : "; cin>>metodecari;
-    switch (metodecari)
-    {
-    case 1:
-     cout<<"Nim Jamaah : "; cin>>t;
-     mentah[jumlahjamaah-1].nim == t;
-        while (!ditemukan && mentah[t].nim <t)
-           j++;
-           if (t>jumlahjamaah)
-           {
-             cout<<"data jamaah tidak ditemukan\n";
-           }
-           else
-           if (mentah[j].nim == t )
-           {
-            cout<<"data ditemukan\n";
-               cout<<"Nama Jamaah : "<<mentah[j].nama<<endl;
-            cout<<"Jurusan Jamaah : "<< mentah[j].jurusan<<endl;
-           }
-           else cout<<"tidak ada data yang dicari";
-        break;
-        case 2 :
-        while ((j<jumlahjamaah) && (!ditemukan) && (t>=mentah[j].nim))
-        {
-            if (mentah[j].nim == t)
-            {
-                ditemukan = true;
-            }
-            else{
-                j++;
-            }
-            
-        }
-        if (ditemukan)
-        {
-            cout<<"data ditemukan\n";
-               cout<<"Nama Jamaah : "<<mentah[j].nama<<endl;
-            cout<<"Jurusan Jamaah : "<< mentah[j].jurusan<<endl;
-        }
-        else{
-             cout<<"tidak ada data yang dicari";
-        }
-        break;
-    case 3 :
-        j=0;
-        l=jumlahjamaah;
-        int v;
-        while ((!ditemukan) && (j<= l))
-        {
-            v= (j+l) /2;
-            if ( t == mentah[v].nim)
-            {
-                ditemukan = true;
-            }
-            else{
-                if (t < mentah[v].nim)
-                {
-                    j=v-1;
-                }
-                else{
-                    j=l+1;
-                }
-                
-            }
-        }
-        if (ditemukan)
-        {
-            cout<<"data ditemukan\n";
-               cout<<"Nama Jamaah : "<<mentah[j].nama<<endl;
-            cout<<"Jurusan Jamaah : "<< mentah[j].jurusan<<endl;
-        }
-        else{
-             cout<<"tidak ada data yang dicari";
-        }
-
-    break;
-    default:
-        break;
-    }
-}
-
-void metodecarinimtidakurut(){
-    bool found ;
-    int i,y;
+void metodecariint(){
     cout<<"[PENCARIAN DATA PENERIMA TAKJIL]\n";
     cout<<"Pilih metode pencarian :\n";
     cout<<"1. Metode Sequential Sentinel\n";
     cout<<"2. Metode Sequential Non-Sentinel\n";
-    
+    cout<<"3. Metode Binary\n";
     cout<<"Pilih metode : "; cin>>metodecari;
     switch (metodecari) {
         case 1:
-       cout<<"Nim Jamaah : "; cin>>y;
-       pengambil[jumlahjamaah-1].nim == y;
-        found = false;
-        i=0;
-        while (!found)
-        {
-            if (pengambil[i].nim == y)
-            { found = true;
-                
-            }
-            else{
-                i=i++;
-            }
-           
+        if (metodecari == 1){
+
+        } else if (metodecari == 2) {
+
         }
-         if(i == jumlahjamaah) {cout<<"tidak ada jamaah dengan nim "<< y << "dalam data masjid "<<endl;}
-            else{
-            cout<<"data ditemukan \n";
-            cout<<"Nama Jamaah : "<<pengambil[i].nama<<endl;
-            cout<<"Jurusan Jamaah : "<< pengambil[i].jurusan<<endl;
-            }
-        
         break;
 
         case 2:
-         found = false;
-         i=0;
-         while ( (i < jumlahjamaah) && (!found) )
-         {
-            if (pengambil[i].nim == y)
-            {
-                found = true;
-            }
-            else {
-                i = i+1;
-            }
-         }
-          if(found) {cout<<"tidak ada jamaah dengan nim "<< y << "dalam data masjid "<<endl;}
-            else{
-            cout<<"data ditemukan \n";
-            cout<<"Nama Jamaah : "<<pengambil[i].nama;
-            cout<<"Jurusan Jamaah : "<< pengambil[i].jurusan;
-            }
+        if (metodecari == 1){
+
+        } else if (metodecari == 2) {
+            
+        }
         break;
 
+        case 3:
+        if (metodecari == 1){
+
+        } else if (metodecari == 2) {
+            
+        }
+        break;
 
         default:
         break;
@@ -380,38 +179,19 @@ void metodecarinimtidakurut(){
 }
 
 void searchingjamaah(){
-    int kondisi2;
     cout<<"[PENCARIAN DATA PENERIMA TAKJIL]\n";
     cout<<"Pilih Via Pencarian :\n";
     cout<<"1. Cari melalui Nomor Antrian penerima takjil\n";
     cout<<"2. Cari melalui NIM penerima takjil\n";
+    cout<<"3. Cari melalui Nama penerima takjil\n";
     cout<<"Pilihan Admin : "; cin>>viacari;
     switch(viacari){
         case 1:
-       
+        metodecariint();
         break;
 
         case 2:
-        cout<<"pilih metode pencarian :\n";
-        cout<<"1.Data terurutkan\n";
-        cout<<"2. Data tidak Terurut";
-       if (kondisi2 == 1 || kondisi2 <=2)
-       {
-          if (kondisi2 == 1)
-        {
-            metodecarinimurut;
-        }
-        else if (kondisi2 == 2)
-        {
-            metodecarinimtidakurut();
-        }
-        else{
-            cout<<"Pilih kembali metode dengan benar";
-        }
-       }
-      
-        
-        
+        metodecariint();
         break;
 
         case 3:
@@ -647,7 +427,6 @@ void antrianquickdesc(int awal, int akhir) {
 }
 
 void sortingjamaah(){
-
     cout<<"[SORTIR DATA PENERIMA TAKJIL]\n";
     cout<<"Pilihan menu sorting data penerima :\n";
     cout<<"1. Sorting menurut Nomor Antrian penerima\n";
@@ -870,7 +649,6 @@ void sortingjamaah(){
 
 
 int main() {
-    system("cls");
     string username, pass;
     bool login = false;
     int chance = 4, menu, piladmin;
