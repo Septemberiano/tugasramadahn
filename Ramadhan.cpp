@@ -98,8 +98,8 @@ void inputjamaah() {
                 } else {
                     valid = true;
                     for (int i = jumlahjamaah; i < jumlahjamaah + antrian[k]; i++){
-                        pengambil[i].noantrian = i;
-                        mentah[i].noantrian = i;
+                        pengambil[i].noantrian = i+1;
+                        mentah[i].noantrian = i+1;
                         cout<<"\nPenerima #"<<i+1<<endl;
                         cout << "Masukan Nama Penerima : ";
                         getline(cin >> ws, pengambil[i].nama);
@@ -126,6 +126,16 @@ void inputjamaah() {
     } while (inputlagi == 'y' || inputlagi == 'Y');
 }
 
+void tampildatapengambil(){
+    cout<<"+"<<setfill('-')<<setw(5)<<"+"<<setw(13)<<"+"<<setw(12)<<"+"<<setw(27)<<"+"<<setw(23)<<"+"<<endl;
+    cout<<"|"<<left<<setfill(' ')<<setw(4)<<" No"<<"|"<<setw(12)<<" No Antrian"<<"|"<<setw(11)<<" NIM"<<"|"<<setw(26)<<" Nama Jamaah"<<"|"<<setw(22)<<" Jurusan"<<"|"<<endl;
+    cout<<right<<"+"<<setfill('-')<<setw(5)<<"+"<<setw(13)<<"+"<<setw(12)<<"+"<<setw(27)<<"+"<<setw(23)<<"+"<<endl;
+    for(int i = 0; i < jumlahjamaah; i++){
+        cout<<"| "<<left<<setfill(' ')<<setw(3)<<i+1<<"| "<<setw(11)<<pengambil[i].noantrian<<"| "<<setw(10)<<pengambil[i].nim<<"| "<<setw(25)<<pengambil[i].nama<<"| "<<setw(21)<<pengambil[i].jurusan<<"|"<<endl;  
+    }
+    cout<<right<<"+"<<setfill('-')<<setw(5)<<"+"<<setw(13)<<"+"<<setw(12)<<"+"<<setw(27)<<"+"<<setw(23)<<"+"<<endl;
+}
+
 void datajamaah() {
     cout<<"[DATA JAMAAH PENERIMA TAKJIL]\n";
     cout<<"Data Jamaah Penerima Takjil pada "<<takjil.tgl.hari<<"/"<<takjil.tgl.bulan<<"/"<<takjil.tgl.tahun<<endl;
@@ -136,7 +146,13 @@ void datajamaah() {
         cout<<"Silahkan input data terlebih dahulu.\n";
         system("pause");
     } else {
-
+        cout<<"+"<<setfill('-')<<setw(5)<<"+"<<setw(13)<<"+"<<setw(12)<<"+"<<setw(27)<<"+"<<setw(23)<<"+"<<endl;
+        cout<<"|"<<left<<setfill(' ')<<setw(4)<<" No"<<"|"<<setw(12)<<" No Antrian"<<"|"<<setw(11)<<" NIM"<<"|"<<setw(26)<<" Nama Jamaah"<<"|"<<setw(22)<<" Jurusan"<<"|"<<endl;
+        cout<<right<<"+"<<setfill('-')<<setw(5)<<"+"<<setw(13)<<"+"<<setw(12)<<"+"<<setw(27)<<"+"<<setw(23)<<"+"<<endl;
+        for(int i = 0; i < jumlahjamaah; i++){
+            cout<<"| "<<left<<setfill(' ')<<setw(3)<<i+1<<"| "<<setw(11)<<mentah[i].noantrian<<"| "<<setw(10)<<mentah[i].nim<<"| "<<setw(25)<<mentah[i].nama<<"| "<<setw(21)<<mentah[i].jurusan<<"|"<<endl;  
+        }
+        cout<<right<<"+"<<setfill('-')<<setw(5)<<"+"<<setw(13)<<"+"<<setw(12)<<"+"<<setw(27)<<"+"<<setw(23)<<"+"<<endl;
     }
 
 }
@@ -646,8 +662,231 @@ void antrianquickdesc(int awal, int akhir) {
     }
 }
 
-void sortingjamaah(){
+void nimbubbleasc(){
+    for (int i = 0; i < jumlahjamaah-1; i++){
+        for (int j = 0; j < jumlahjamaah-i-1; j++){
+            if (pengambil[j].nim > pengambil[j+1].nim){
+                int tempantrian = pengambil[j+1].noantrian;
+                int tempnim = pengambil[j+1].nim;
+                string tempnama = pengambil[j+1].nama;
+                pengambil[j+1].noantrian = pengambil[j].noantrian;
+                pengambil[j+1].nim = pengambil[j].nim;
+                pengambil[j+1].nama = pengambil[j].nama;
+                pengambil[j].noantrian = tempantrian;
+                pengambil[j].nim = tempnim;
+                pengambil[j].nama = tempnama;
+            }
+        }
+    }
+}
 
+void nimbubbledesc(){
+    for (int i = 0; i < jumlahjamaah-1; i++){
+        for (int j = 0; j < jumlahjamaah-i-1; j++){
+            if (pengambil[j].nim < pengambil[j+1].nim){
+                int tempantrian = pengambil[j+1].noantrian;
+                int tempnim = pengambil[j+1].nim;
+                string tempnama = pengambil[j+1].nama;
+                pengambil[j+1].noantrian = pengambil[j].noantrian;
+                pengambil[j+1].nim = pengambil[j].nim;
+                pengambil[j+1].nama = pengambil[j].nama;
+                pengambil[j].noantrian = tempantrian;
+                pengambil[j].nim = tempnim;
+                pengambil[j].nama = tempnama;
+            }
+        }
+    }
+}
+
+void nimselectionasc(){
+    for (int i = 0; i < jumlahjamaah-1; i++){
+        int tempantrian = pengambil[i].noantrian;
+        int tempnim = pengambil[i].nim;
+        string tempnama = pengambil[i].nama;
+        int g = i;
+        for (int j = i + 1; j < jumlahjamaah; j++){
+            if (pengambil[g].nim > pengambil[j].nim){
+                g = j;
+            }
+        }
+        pengambil[i].noantrian = pengambil[g].noantrian;
+        pengambil[i].nim = pengambil[g].nim;
+        pengambil[i].nama = pengambil[g].nama;
+        pengambil[g].noantrian = tempantrian;
+        pengambil[g].nim = tempnim;
+        pengambil[g].nama = tempnama;
+    }
+}
+
+void nimselectiondesc(){
+    for (int i = 0; i < jumlahjamaah-1; i++){
+        int tempantrian = pengambil[i].noantrian;
+        int tempnim = pengambil[i].nim;
+        string tempnama = pengambil[i].nama;
+        int g = i;
+        for (int j = i + 1; j < jumlahjamaah; j++){
+            if (pengambil[g].nim < pengambil[j].nim){
+                g = j;
+            }
+        }
+        pengambil[i].noantrian = pengambil[g].noantrian;
+        pengambil[i].nim = pengambil[g].nim;
+        pengambil[i].nama = pengambil[g].nama;
+        pengambil[g].noantrian = tempantrian;
+        pengambil[g].nim = tempnim;
+        pengambil[g].nama = tempnama;
+    }
+}
+
+void niminsertionasc(){
+    for (int i = 0; i < jumlahjamaah; i++){
+        int tempantrian = pengambil[i].noantrian;
+        int tempnim = pengambil[i].nim;
+        string tempnama = pengambil[i].nama;
+        int j = i - 1;
+        while (tempnim < pengambil[j].nim && j >= 0){
+            pengambil[j+1].noantrian = pengambil[j].noantrian;
+            pengambil[j+1].nim = pengambil[j].nim;
+            pengambil[j+1].nama = pengambil[j].nama;
+            j--;
+        }
+        pengambil[j+1].noantrian= tempantrian;
+        pengambil[j+1].nim= tempnim;
+        pengambil[j+1].nama = tempnama;
+    }
+}
+
+void niminsertiondesc(){
+    for (int i = 0; i < jumlahjamaah; i++){
+        int tempantrian = pengambil[i].noantrian;
+        int tempnim = pengambil[i].nim;
+        string tempnama = pengambil[i].nama;
+        int j = i - 1;
+        while (tempnim > pengambil[j].nim && j >= 0){
+            pengambil[j+1].noantrian = pengambil[j].noantrian;
+            pengambil[j+1].nim = pengambil[j].nim;
+            pengambil[j+1].nama = pengambil[j].nama;
+            j--;
+        }
+        pengambil[j+1].noantrian= tempantrian;
+        pengambil[j+1].nim= tempnim;
+        pengambil[j+1].nama = tempnama;
+    }
+}
+
+void nimshellasc(){
+    for (int i = jumlahjamaah / 2; i > 0; i = i / 2) {
+        for (int j = i; j < jumlahjamaah; j++) {
+            for (int g = j - i; g >= 0; g = g - i) {
+                if (pengambil[g + i].nim < pengambil[g].nim) {
+                    int tempantrian = pengambil[g].noantrian;
+                    int tempnim = pengambil[g].nim;
+                    string tempnama = pengambil[g].nama;
+                    pengambil[g].noantrian = pengambil[g+1].noantrian;
+                    pengambil[g].nim = pengambil[g+1].nim;
+                    pengambil[g].nama = pengambil[g+1].nama;
+                    pengambil[g+1].noantrian= tempantrian;
+                    pengambil[g+1].nim= tempnim;
+                    pengambil[g+1].nama = tempnama;
+                }
+            }
+         }
+     }  
+}
+
+void nimshelldesc(){
+    for (int i = jumlahjamaah / 2; i > 0; i = i / 2) {
+        for (int j = i; j < jumlahjamaah; j++) {
+            for (int g = j - i; g >= 0; g = g - i) {
+                if (pengambil[g + i].nim > pengambil[g].nim) {
+                    int tempantrian = pengambil[g].noantrian;
+                    int tempnim = pengambil[g].nim;
+                    string tempnama = pengambil[g].nama;
+                    pengambil[g].noantrian = pengambil[g+1].noantrian;
+                    pengambil[g].nim = pengambil[g+1].nim;
+                    pengambil[g].nama = pengambil[g+1].nama;
+                    pengambil[g+1].noantrian= tempantrian;
+                    pengambil[g+1].nim= tempnim;
+                    pengambil[g+1].nama = tempnama;
+                }
+            }
+         }
+     }  
+}
+
+int nimpartitionasc(int awal, int akhir) {
+    int i, pivot=pengambil[akhir].nim, ip=awal;
+    for(i=awal; i<akhir; i++) {
+        if(pengambil[i].nim <= pivot) {
+            int tempantrian = pengambil[i].noantrian;
+            int tempnim = pengambil[i].nim;
+            string tempnama = pengambil[i].nama;
+            pengambil[i].noantrian = pengambil[ip].noantrian;
+            pengambil[i].nim = pengambil[ip].nim;
+            pengambil[i].nama = pengambil[ip].nama;
+            pengambil[ip].noantrian= tempantrian;
+            pengambil[ip].nim= tempnim;
+            pengambil[ip].nama = tempnama;
+            ip++;
+        }
+    }
+    int tempantrian = pengambil[akhir].noantrian;
+    int tempnim = pengambil[akhir].nim;
+    string tempnama = pengambil[akhir].nama;
+    pengambil[akhir].noantrian = pengambil[ip].noantrian;
+    pengambil[akhir].nim = pengambil[ip].nim;
+    pengambil[akhir].nama = pengambil[ip].nama;
+    pengambil[ip].noantrian= tempantrian;
+    pengambil[ip].nim= tempnim;
+    pengambil[ip].nama = tempnama;
+    return ip;
+}
+
+int nimpartitiondesc(int awal, int akhir) {
+    int i, pivot=pengambil[akhir].nim, ip=awal;
+    for(i=awal; i<akhir; i++) {
+        if(pengambil[i].nim >= pivot) {
+            int tempantrian = pengambil[i].noantrian;
+            int tempnim = pengambil[i].nim;
+            string tempnama = pengambil[i].nama;
+            pengambil[i].noantrian = pengambil[ip].noantrian;
+            pengambil[i].nim = pengambil[ip].nim;
+            pengambil[i].nama = pengambil[ip].nama;
+            pengambil[ip].noantrian= tempantrian;
+            pengambil[ip].nim= tempnim;
+            pengambil[ip].nama = tempnama;
+            ip++;
+        }
+    }
+    int tempantrian = pengambil[akhir].noantrian;
+    int tempnim = pengambil[akhir].nim;
+    string tempnama = pengambil[akhir].nama;
+    pengambil[akhir].noantrian = pengambil[ip].noantrian;
+    pengambil[akhir].nim = pengambil[ip].nim;
+    pengambil[akhir].nama = pengambil[ip].nama;
+    pengambil[ip].noantrian= tempantrian;
+    pengambil[ip].nim= tempnim;
+    pengambil[ip].nama = tempnama;
+    return ip;
+}
+
+void nimquickasc(int awal, int akhir) {
+    if(awal < akhir){
+        int ip=nimpartitionasc(awal,akhir);
+        nimquickasc(awal,ip-1);
+        nimquickasc(ip+1,akhir); 
+    }
+}
+
+void nimquickdesc(int awal, int akhir) {
+    if(awal < akhir){
+        int ip=nimpartitiondesc(awal,akhir);
+        nimquickasc(awal,ip-1);
+        nimquickasc(ip+1,akhir);
+    }
+}
+
+void sortingjamaah(){
     cout<<"[SORTIR DATA PENERIMA TAKJIL]\n";
     cout<<"Pilihan menu sorting data penerima :\n";
     cout<<"1. Sorting menurut Nomor Antrian penerima\n";
@@ -663,6 +902,7 @@ void sortingjamaah(){
         cout<<"4. Shell Sort\n";
         cout<<"5. Quick Sort\n";
         cout<<"Pilih metode : "; cin>>metodesort;
+        cout<<"[SORTIR DATA PENERIMA TAKJIL]\n";
         switch(metodesort){
             case 1:
             cout<<"Urutkan berdasarkan :\n";
@@ -772,6 +1012,7 @@ void sortingjamaah(){
         cout<<"4. Shell Sort\n";
         cout<<"5. Quick Sort\n";
         cout<<"Pilih metode : "; cin>>metodesort;
+        cout<<"[SORTIR DATA PENERIMA TAKJIL]\n";
         switch(metodesort){
             case 1:
             cout<<"Urutkan berdasarkan :\n";
@@ -780,9 +1021,11 @@ void sortingjamaah(){
             cout<<"Pilih urutan : "; cin>>urutan;
             switch (urutan){
                 case 1:
+                nimbubbleasc();
                 break;
                 
                 case 2:
+                nimbubbledesc();
                 break;
                 
                 default:
@@ -797,9 +1040,11 @@ void sortingjamaah(){
             cout<<"Pilih urutan : "; cin>>urutan;
             switch (urutan){
                 case 1:
+                nimselectionasc();
                 break;
                 
                 case 2:
+                nimselectiondesc();
                 break;
                 
                 default:
@@ -814,9 +1059,11 @@ void sortingjamaah(){
             cout<<"Pilih urutan : "; cin>>urutan;
             switch (urutan){
                 case 1:
+                niminsertionasc();
                 break;
                 
                 case 2:
+                niminsertiondesc();
                 break;
                 
                 default:
@@ -831,9 +1078,11 @@ void sortingjamaah(){
             cout<<"Pilih urutan : "; cin>>urutan;
             switch (urutan){
                 case 1:
+                nimshellasc();
                 break;
                 
                 case 2:
+                nimshelldesc();
                 break;
                 
                 default:
@@ -848,9 +1097,11 @@ void sortingjamaah(){
             cout<<"Pilih urutan : "; cin>>urutan;
             switch (urutan){
                 case 1:
+                nimquickasc(0, jumlahjamaah-1);
                 break;
 
                 case 2:
+                nimquickdesc(0, jumlahjamaah-1);
                 break;
 
                 default:
@@ -866,6 +1117,7 @@ void sortingjamaah(){
         default:
         break;
     }
+    tampildatapengambil();
 }
 
 
@@ -900,14 +1152,17 @@ int main() {
                     
                     case 2:
                     datajamaah();
+                    system("pause");
                     break;
     
                     case 3:
                     searchingjamaah();
+                    system("pause");
                     break;
     
                     case 4:
                     sortingjamaah();
+                    system("pause");
                     break;
     
                     case 0:
