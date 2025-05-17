@@ -37,6 +37,7 @@ int totalpenerima(int k){
 void inputmakan() {
     cout << "\n\tSelamat datang di Program Berbagi Ramadhan Masjid Sabrini\n";
     cout<<"Silahkan pilih input data takjil!\n";
+    cout<<"Note : Masukkan dalam bentuk angka\n";
     do {
         cout << "Masukan tanggal : ";
         cin >> takjil.tgl.hari;
@@ -406,7 +407,7 @@ void searchingjamaah(){
     cout<<"Pilihan Admin : "; cin>>viacari;
     switch(viacari){
         case 1:
-       
+        
         break;
 
         case 2:
@@ -417,7 +418,7 @@ void searchingjamaah(){
        {
           if (kondisi2 == 1)
         {
-            metodecarinimurut;
+            metodecarinimurut();
         }
         else if (kondisi2 == 2)
         {
@@ -444,15 +445,9 @@ void antrianbubbleasc(){
     for (int i = 0; i < jumlahjamaah-1; i++){
         for (int j = 0; j < jumlahjamaah-i-1; j++){
             if (pengambil[j].noantrian > pengambil[j+1].noantrian){
-                int tempantrian = pengambil[j+1].noantrian;
-                int tempnim = pengambil[j+1].nim;
-                string tempnama = pengambil[j+1].nama;
-                pengambil[j+1].noantrian = pengambil[j].noantrian;
-                pengambil[j+1].nim = pengambil[j].nim;
-                pengambil[j+1].nama = pengambil[j].nama;
-                pengambil[j].noantrian = tempantrian;
-                pengambil[j].nim = tempnim;
-                pengambil[j].nama = tempnama;
+                swap(pengambil[j+1].noantrian, pengambil[j].noantrian);
+                swap(pengambil[j+1].nim, pengambil[j].nim);
+                swap(pengambil[j+1].nama, pengambil[j].nama);
             }
         }
     }
@@ -462,15 +457,9 @@ void antrianbubbledesc(){
     for (int i = 0; i < jumlahjamaah-1; i++){
         for (int j = 0; j < jumlahjamaah-i-1; j++){
             if (pengambil[j].noantrian < pengambil[j+1].noantrian){
-                int tempantrian = pengambil[j+1].noantrian;
-                int tempnim = pengambil[j+1].nim;
-                string tempnama = pengambil[j+1].nama;
-                pengambil[j+1].noantrian = pengambil[j].noantrian;
-                pengambil[j+1].nim = pengambil[j].nim;
-                pengambil[j+1].nama = pengambil[j].nama;
-                pengambil[j].noantrian = tempantrian;
-                pengambil[j].nim = tempnim;
-                pengambil[j].nama = tempnama;
+                swap(pengambil[j+1].noantrian, pengambil[j].noantrian);
+                swap(pengambil[j+1].nim, pengambil[j].nim);
+                swap(pengambil[j+1].nama, pengambil[j].nama);
             }
         }
     }
@@ -478,41 +467,29 @@ void antrianbubbledesc(){
 
 void antrianselectionasc(){
     for (int i = 0; i < jumlahjamaah-1; i++){
-        int tempantrian = pengambil[i].noantrian;
-        int tempnim = pengambil[i].nim;
-        string tempnama = pengambil[i].nama;
         int g = i;
         for (int j = i + 1; j < jumlahjamaah; j++){
             if (pengambil[g].noantrian > pengambil[j].noantrian){
                 g = j;
             }
         }
-        pengambil[i].noantrian = pengambil[g].noantrian;
-        pengambil[i].nim = pengambil[g].nim;
-        pengambil[i].nama = pengambil[g].nama;
-        pengambil[g].noantrian = tempantrian;
-        pengambil[g].nim = tempnim;
-        pengambil[g].nama = tempnama;
+        swap(pengambil[i].noantrian, pengambil[g].noantrian);
+        swap(pengambil[i].nim, pengambil[g].nim);
+        swap(pengambil[i].nama, pengambil[g].nama);
     }
 }
 
 void antrianselectiondesc(){
     for (int i = 0; i < jumlahjamaah-1; i++){
-        int tempantrian = pengambil[i].noantrian;
-        int tempnim = pengambil[i].nim;
-        string tempnama = pengambil[i].nama;
         int g = i;
         for (int j = i + 1; j < jumlahjamaah; j++){
             if (pengambil[g].noantrian < pengambil[j].noantrian){
                 g = j;
             }
         }
-        pengambil[i].noantrian = pengambil[g].noantrian;
-        pengambil[i].nim = pengambil[g].nim;
-        pengambil[i].nama = pengambil[g].nama;
-        pengambil[g].noantrian = tempantrian;
-        pengambil[g].nim = tempnim;
-        pengambil[g].nama = tempnama;
+        swap(pengambil[i].noantrian, pengambil[g].noantrian);
+        swap(pengambil[i].nim, pengambil[g].nim);
+        swap(pengambil[i].nama, pengambil[g].nama);
     }
 }
 
@@ -557,15 +534,9 @@ void antrianshellasc(){
         for (int j = i; j < jumlahjamaah; j++) {
             for (int g = j - i; g >= 0; g = g - i) {
                 if (pengambil[g + i].noantrian < pengambil[g].noantrian) {
-                    int tempantrian = pengambil[g].noantrian;
-                    int tempnim = pengambil[g].nim;
-                    string tempnama = pengambil[g].nama;
-                    pengambil[g].noantrian = pengambil[g+1].noantrian;
-                    pengambil[g].nim = pengambil[g+1].nim;
-                    pengambil[g].nama = pengambil[g+1].nama;
-                    pengambil[g+1].noantrian= tempantrian;
-                    pengambil[g+1].nim= tempnim;
-                    pengambil[g+1].nama = tempnama;
+                    swap(pengambil[g].noantrian, pengambil[g+1].noantrian);
+                    swap(pengambil[g].nim, pengambil[g+1].nim);
+                    swap(pengambil[g].nama, pengambil[g+1].nama);
                 }
             }
          }
@@ -577,15 +548,9 @@ void antrianshelldesc(){
         for (int j = i; j < jumlahjamaah; j++) {
             for (int g = j - i; g >= 0; g = g - i) {
                 if (pengambil[g + i].noantrian > pengambil[g].noantrian) {
-                    int tempantrian = pengambil[g].noantrian;
-                    int tempnim = pengambil[g].nim;
-                    string tempnama = pengambil[g].nama;
-                    pengambil[g].noantrian = pengambil[g+1].noantrian;
-                    pengambil[g].nim = pengambil[g+1].nim;
-                    pengambil[g].nama = pengambil[g+1].nama;
-                    pengambil[g+1].noantrian= tempantrian;
-                    pengambil[g+1].nim= tempnim;
-                    pengambil[g+1].nama = tempnama;
+                    swap(pengambil[g].noantrian, pengambil[g+1].noantrian);
+                    swap(pengambil[g].nim, pengambil[g+1].nim);
+                    swap(pengambil[g].nama, pengambil[g+1].nama);
                 }
             }
          }
@@ -596,27 +561,15 @@ int partitionasc(int awal, int akhir) {
     int i, pivot=pengambil[akhir].noantrian, ip=awal;
     for(i=awal; i<akhir; i++) {
         if(pengambil[i].noantrian <= pivot) {
-            int tempantrian = pengambil[i].noantrian;
-            int tempnim = pengambil[i].nim;
-            string tempnama = pengambil[i].nama;
-            pengambil[i].noantrian = pengambil[ip].noantrian;
-            pengambil[i].nim = pengambil[ip].nim;
-            pengambil[i].nama = pengambil[ip].nama;
-            pengambil[ip].noantrian= tempantrian;
-            pengambil[ip].nim= tempnim;
-            pengambil[ip].nama = tempnama;
+            swap(pengambil[i].noantrian, pengambil[ip].noantrian);
+            swap(pengambil[i].nim, pengambil[ip].nim);
+            swap(pengambil[i].nama, pengambil[ip].nama);
             ip++;
         }
     }
-    int tempantrian = pengambil[akhir].noantrian;
-    int tempnim = pengambil[akhir].nim;
-    string tempnama = pengambil[akhir].nama;
-    pengambil[akhir].noantrian = pengambil[ip].noantrian;
-    pengambil[akhir].nim = pengambil[ip].nim;
-    pengambil[akhir].nama = pengambil[ip].nama;
-    pengambil[ip].noantrian= tempantrian;
-    pengambil[ip].nim= tempnim;
-    pengambil[ip].nama = tempnama;
+    swap(pengambil[akhir].noantrian, pengambil[ip].noantrian);
+    swap(pengambil[akhir].nim, pengambil[ip].nim);
+    swap(pengambil[akhir].nama, pengambil[ip].nama);
     return ip;
 }
 
@@ -624,27 +577,15 @@ int partitiondesc(int awal, int akhir) {
     int i, pivot=pengambil[akhir].noantrian, ip=awal;
     for(i=awal; i<akhir; i++) {
         if(pengambil[i].noantrian >= pivot) {
-            int tempantrian = pengambil[i].noantrian;
-            int tempnim = pengambil[i].nim;
-            string tempnama = pengambil[i].nama;
-            pengambil[i].noantrian = pengambil[ip].noantrian;
-            pengambil[i].nim = pengambil[ip].nim;
-            pengambil[i].nama = pengambil[ip].nama;
-            pengambil[ip].noantrian= tempantrian;
-            pengambil[ip].nim= tempnim;
-            pengambil[ip].nama = tempnama;
+            swap(pengambil[i].noantrian, pengambil[ip].noantrian);
+            swap(pengambil[i].nim, pengambil[ip].nim);
+            swap(pengambil[i].nama, pengambil[ip].nama);
             ip++;
         }
     }
-    int tempantrian = pengambil[akhir].noantrian;
-    int tempnim = pengambil[akhir].nim;
-    string tempnama = pengambil[akhir].nama;
-    pengambil[akhir].noantrian = pengambil[ip].noantrian;
-    pengambil[akhir].nim = pengambil[ip].nim;
-    pengambil[akhir].nama = pengambil[ip].nama;
-    pengambil[ip].noantrian= tempantrian;
-    pengambil[ip].nim= tempnim;
-    pengambil[ip].nama = tempnama;
+    swap(pengambil[akhir].noantrian, pengambil[ip].noantrian);
+    swap(pengambil[akhir].nim, pengambil[ip].nim);
+    swap(pengambil[akhir].nama, pengambil[ip].nama);
     return ip;
 }
 
@@ -668,15 +609,9 @@ void nimbubbleasc(){
     for (int i = 0; i < jumlahjamaah-1; i++){
         for (int j = 0; j < jumlahjamaah-i-1; j++){
             if (pengambil[j].nim > pengambil[j+1].nim){
-                int tempantrian = pengambil[j+1].noantrian;
-                int tempnim = pengambil[j+1].nim;
-                string tempnama = pengambil[j+1].nama;
-                pengambil[j+1].noantrian = pengambil[j].noantrian;
-                pengambil[j+1].nim = pengambil[j].nim;
-                pengambil[j+1].nama = pengambil[j].nama;
-                pengambil[j].noantrian = tempantrian;
-                pengambil[j].nim = tempnim;
-                pengambil[j].nama = tempnama;
+                swap(pengambil[j+1].noantrian, pengambil[j].noantrian);
+                swap(pengambil[j+1].nim, pengambil[j].nim);
+                swap(pengambil[j+1].nama, pengambil[j].nama);
             }
         }
     }
@@ -686,15 +621,9 @@ void nimbubbledesc(){
     for (int i = 0; i < jumlahjamaah-1; i++){
         for (int j = 0; j < jumlahjamaah-i-1; j++){
             if (pengambil[j].nim < pengambil[j+1].nim){
-                int tempantrian = pengambil[j+1].noantrian;
-                int tempnim = pengambil[j+1].nim;
-                string tempnama = pengambil[j+1].nama;
-                pengambil[j+1].noantrian = pengambil[j].noantrian;
-                pengambil[j+1].nim = pengambil[j].nim;
-                pengambil[j+1].nama = pengambil[j].nama;
-                pengambil[j].noantrian = tempantrian;
-                pengambil[j].nim = tempnim;
-                pengambil[j].nama = tempnama;
+                swap(pengambil[j+1].noantrian, pengambil[j].noantrian);
+                swap(pengambil[j+1].nim, pengambil[j].nim);
+                swap(pengambil[j+1].nama, pengambil[j].nama);
             }
         }
     }
@@ -702,41 +631,29 @@ void nimbubbledesc(){
 
 void nimselectionasc(){
     for (int i = 0; i < jumlahjamaah-1; i++){
-        int tempantrian = pengambil[i].noantrian;
-        int tempnim = pengambil[i].nim;
-        string tempnama = pengambil[i].nama;
         int g = i;
         for (int j = i + 1; j < jumlahjamaah; j++){
             if (pengambil[g].nim > pengambil[j].nim){
                 g = j;
             }
         }
-        pengambil[i].noantrian = pengambil[g].noantrian;
-        pengambil[i].nim = pengambil[g].nim;
-        pengambil[i].nama = pengambil[g].nama;
-        pengambil[g].noantrian = tempantrian;
-        pengambil[g].nim = tempnim;
-        pengambil[g].nama = tempnama;
-    }
+        swap(pengambil[i].noantrian, pengambil[g].noantrian);
+        swap(pengambil[i].nim, pengambil[g].nim);
+        swap(pengambil[i].nama, pengambil[g].nama);
+    } 
 }
 
 void nimselectiondesc(){
     for (int i = 0; i < jumlahjamaah-1; i++){
-        int tempantrian = pengambil[i].noantrian;
-        int tempnim = pengambil[i].nim;
-        string tempnama = pengambil[i].nama;
         int g = i;
         for (int j = i + 1; j < jumlahjamaah; j++){
             if (pengambil[g].nim < pengambil[j].nim){
                 g = j;
             }
         }
-        pengambil[i].noantrian = pengambil[g].noantrian;
-        pengambil[i].nim = pengambil[g].nim;
-        pengambil[i].nama = pengambil[g].nama;
-        pengambil[g].noantrian = tempantrian;
-        pengambil[g].nim = tempnim;
-        pengambil[g].nama = tempnama;
+        swap(pengambil[i].noantrian, pengambil[g].noantrian);
+        swap(pengambil[i].nim, pengambil[g].nim);
+        swap(pengambil[i].nama, pengambil[g].nama);
     }
 }
 
@@ -781,15 +698,9 @@ void nimshellasc(){
         for (int j = i; j < jumlahjamaah; j++) {
             for (int g = j - i; g >= 0; g = g - i) {
                 if (pengambil[g + i].nim < pengambil[g].nim) {
-                    int tempantrian = pengambil[g].noantrian;
-                    int tempnim = pengambil[g].nim;
-                    string tempnama = pengambil[g].nama;
-                    pengambil[g].noantrian = pengambil[g+1].noantrian;
-                    pengambil[g].nim = pengambil[g+1].nim;
-                    pengambil[g].nama = pengambil[g+1].nama;
-                    pengambil[g+1].noantrian= tempantrian;
-                    pengambil[g+1].nim= tempnim;
-                    pengambil[g+1].nama = tempnama;
+                    swap(pengambil[g].noantrian, pengambil[g+1].noantrian);
+                    swap(pengambil[g].nim, pengambil[g+1].nim);
+                    swap(pengambil[g].nama, pengambil[g+1].nama);
                 }
             }
          }
@@ -801,15 +712,9 @@ void nimshelldesc(){
         for (int j = i; j < jumlahjamaah; j++) {
             for (int g = j - i; g >= 0; g = g - i) {
                 if (pengambil[g + i].nim > pengambil[g].nim) {
-                    int tempantrian = pengambil[g].noantrian;
-                    int tempnim = pengambil[g].nim;
-                    string tempnama = pengambil[g].nama;
-                    pengambil[g].noantrian = pengambil[g+1].noantrian;
-                    pengambil[g].nim = pengambil[g+1].nim;
-                    pengambil[g].nama = pengambil[g+1].nama;
-                    pengambil[g+1].noantrian= tempantrian;
-                    pengambil[g+1].nim= tempnim;
-                    pengambil[g+1].nama = tempnama;
+                    swap(pengambil[g].noantrian, pengambil[g+1].noantrian);
+                    swap(pengambil[g].nim, pengambil[g+1].nim);
+                    swap(pengambil[g].nama, pengambil[g+1].nama);
                 }
             }
          }
@@ -820,27 +725,15 @@ int nimpartitionasc(int awal, int akhir) {
     int i, pivot=pengambil[akhir].nim, ip=awal;
     for(i=awal; i<akhir; i++) {
         if(pengambil[i].nim <= pivot) {
-            int tempantrian = pengambil[i].noantrian;
-            int tempnim = pengambil[i].nim;
-            string tempnama = pengambil[i].nama;
-            pengambil[i].noantrian = pengambil[ip].noantrian;
-            pengambil[i].nim = pengambil[ip].nim;
-            pengambil[i].nama = pengambil[ip].nama;
-            pengambil[ip].noantrian= tempantrian;
-            pengambil[ip].nim= tempnim;
-            pengambil[ip].nama = tempnama;
+            swap(pengambil[i].noantrian, pengambil[ip].noantrian);
+            swap(pengambil[i].nim, pengambil[ip].nim);
+            swap(pengambil[i].nama, pengambil[ip].nama);
             ip++;
         }
     }
-    int tempantrian = pengambil[akhir].noantrian;
-    int tempnim = pengambil[akhir].nim;
-    string tempnama = pengambil[akhir].nama;
-    pengambil[akhir].noantrian = pengambil[ip].noantrian;
-    pengambil[akhir].nim = pengambil[ip].nim;
-    pengambil[akhir].nama = pengambil[ip].nama;
-    pengambil[ip].noantrian= tempantrian;
-    pengambil[ip].nim= tempnim;
-    pengambil[ip].nama = tempnama;
+    swap(pengambil[akhir].noantrian, pengambil[ip].noantrian);
+    swap(pengambil[akhir].nim, pengambil[ip].nim);
+    swap(pengambil[akhir].nama, pengambil[ip].nama);
     return ip;
 }
 
@@ -848,27 +741,15 @@ int nimpartitiondesc(int awal, int akhir) {
     int i, pivot=pengambil[akhir].nim, ip=awal;
     for(i=awal; i<akhir; i++) {
         if(pengambil[i].nim >= pivot) {
-            int tempantrian = pengambil[i].noantrian;
-            int tempnim = pengambil[i].nim;
-            string tempnama = pengambil[i].nama;
-            pengambil[i].noantrian = pengambil[ip].noantrian;
-            pengambil[i].nim = pengambil[ip].nim;
-            pengambil[i].nama = pengambil[ip].nama;
-            pengambil[ip].noantrian= tempantrian;
-            pengambil[ip].nim= tempnim;
-            pengambil[ip].nama = tempnama;
+            swap(pengambil[i].noantrian, pengambil[ip].noantrian);
+            swap(pengambil[i].nim, pengambil[ip].nim);
+            swap(pengambil[i].nama, pengambil[ip].nama);
             ip++;
         }
     }
-    int tempantrian = pengambil[akhir].noantrian;
-    int tempnim = pengambil[akhir].nim;
-    string tempnama = pengambil[akhir].nama;
-    pengambil[akhir].noantrian = pengambil[ip].noantrian;
-    pengambil[akhir].nim = pengambil[ip].nim;
-    pengambil[akhir].nama = pengambil[ip].nama;
-    pengambil[ip].noantrian= tempantrian;
-    pengambil[ip].nim= tempnim;
-    pengambil[ip].nama = tempnama;
+    swap(pengambil[akhir].noantrian, pengambil[ip].noantrian);
+    swap(pengambil[akhir].nim, pengambil[ip].nim);
+    swap(pengambil[akhir].nama, pengambil[ip].nama);
     return ip;
 }
 
