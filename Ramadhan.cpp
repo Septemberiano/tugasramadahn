@@ -881,8 +881,8 @@ void nimquickasc(int awal, int akhir) {
 void nimquickdesc(int awal, int akhir) {
     if(awal < akhir){
         int ip=nimpartitiondesc(awal,akhir);
-        nimquickasc(awal,ip-1);
-        nimquickasc(ip+1,akhir);
+        nimquickdesc(awal,ip-1);
+        nimquickdesc(ip+1,akhir);
     }
 }
 
