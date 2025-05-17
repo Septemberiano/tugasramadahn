@@ -1,7 +1,9 @@
 #include <iostream>
 #include <iomanip>
+#include <stdio.h>
+#include <fstream>
 using namespace std;
-    bool sorting;
+bool sorting;
 int antrian[100], jumlahjamaah = 0, k = 0, viacari, metodecari, sortingmenurut, metodesort, urutan;
 bool valid = false;
 
