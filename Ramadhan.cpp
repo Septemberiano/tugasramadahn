@@ -34,7 +34,7 @@ int totalpenerima(int k){
     }
 }
 
-void inputmakan() {
+void inputmakan(string namafile, string datakecilmentah) {
     cout << "\n\tSelamat datang di Program Berbagi Ramadhan Masjid Sabrini\n";
     cout<<"Silahkan pilih input data takjil!\n";
     cout<<"Note : Masukkan dalam bentuk angka\n";
@@ -83,10 +83,13 @@ void inputmakan() {
             valid = true;
         }
     } while (!valid);
+    ofstream datakecil (datakecilmentah);
+    datakecil<<takjil.tgl.hari<<","<<takjil.tgl.bulan<<","<<takjil.tgl.tahun<<","<<takjil.namamenu<<","<<takjil.jumlah<<","<<jumlahjamaah<<","<<k<<"\n";
+    datakecil.close();
     cout<<"[DATA TERSIMPAN]\n";
 }
 
-void inputjamaah() {
+void inputjamaah(string namafile, string filementah, string datakecilmentah) {
     char inputlagi;
     do {
         cout << "\n[INPUT DATA JAMAAH PENERIMA TAKJIL]\n";
@@ -113,11 +116,20 @@ void inputjamaah() {
                         cout << "Masukan Jurusan Penerima : ";
                         getline(cin >> ws, pengambil[i].jurusan);
                         mentah[i].jurusan = pengambil[i].jurusan;
+                        ofstream databaru (namafile, ios::app);
+                        databaru<<"| "<<left<<setfill(' ')<<setw(3)<<i+1<<"| "<<setw(11)<<pengambil[i].noantrian<<"| "<<setw(10)<<pengambil[i].nim<<"| "<<setw(25)<<pengambil[i].nama<<"| "<<setw(21)<<pengambil[i].jurusan<<"|"<<endl;
+                        databaru.close();
+                        ofstream datamentah (filementah);
+                        datamentah<<pengambil[i].noantrian<<","<<pengambil[i].nim<<","<<pengambil[i].nama<<","<<pengambil[i].jurusan<<"\n";
+                        datamentah.close();
                     }
                     jumlahjamaah = totalpenerima(k);
                     takjil.jumlah -= antrian[k];
                     k++;
                 }
+                ofstream datakecil (datakecilmentah);
+                datakecil<<takjil.tgl.hari<<","<<takjil.tgl.bulan<<","<<takjil.tgl.tahun<<","<<takjil.namamenu<<","<<takjil.jumlah<<","<<jumlahjamaah<<","<<k<<"\n";
+                datakecil.close();
             } while (!valid);
             cout<<"[DATA TERSIMPAN!]\n";
             cout << "\nApakah Anda akan melakukan input data lagi? (y/n) : "; cin>>inputlagi;
@@ -769,7 +781,7 @@ void nimquickdesc(int awal, int akhir) {
     }
 }
 
-void sortingjamaah(){
+void sortingjamaah(string namafile){
     cout<<"[SORTIR DATA PENERIMA TAKJIL]\n";
     cout<<"Pilihan menu sorting data penerima :\n";
     cout<<"1. Sorting menurut Nomor Antrian penerima\n";
@@ -1003,12 +1015,217 @@ void sortingjamaah(){
     tampildatapengambil();
 }
 
+void menucreatedata(string namafile, string filementah, string datakecilmentah){
+    int piladmin;
+    jumlahjamaah = 0, k = 0;
+    inputmakan(namafile, datakecilmentah);
+    do {
+        ofstream databaru (namafile);
+        cout<<"\n[PROGRAM BERBAGI RAMADHAN MASJID SABRINI]\n";
+        cout << "Takjil Masjid Sabrini pada tanggal "<< takjil.tgl.hari<<"/"<<takjil.tgl.bulan<<"/"<<takjil.tgl.tahun<<endl;
+        cout << "Penerima Takjil Masjid Sabrini\n";
+        cout << "1. Input Data Jamaah Penerima Takjil\n";
+        cout << "2. Data Jamaah Penerima Takjil\n";
+        cout << "3. Pencarian Data Penerima Takjil\n";
+        cout << "4. Sortir Data Penerima Takjil\n";
+        cout << "0. Keluar\n";
+        cout << "Pilihan admin : ";
+        cin >> piladmin;
+        switch (piladmin) {
+            case 1:
+            inputjamaah(namafile, filementah, datakecilmentah);
+            databaru.close();
+            break;
+                        
+            case 2:
+            datajamaah();
+            system("pause");
+            databaru.close();
+            break;
+        
+            case 3:
+            searchingjamaah();
+            system("pause");
+            databaru.close();
+            break;
+        
+            case 4:
+            sortingjamaah(namafile);
+            system("pause");
+            databaru.close();
+            break;
+        
+            case 0:
+            databaru<<"[DATA JAMAAH PENERIMA TAKJIL]\n";
+            databaru<<"Data Jamaah Penerima Takjil pada "<<takjil.tgl.hari<<"/"<<takjil.tgl.bulan<<"/"<<takjil.tgl.tahun<<endl;
+            databaru<< "Menu takjil : " << takjil.namamenu<<endl;
+            databaru<< "Jumlah takjil tersisa : " << takjil.jumlah << "\n\n";
+            databaru<<"+"<<setfill('-')<<setw(5)<<"+"<<setw(13)<<"+"<<setw(12)<<"+"<<setw(27)<<"+"<<setw(23)<<"+"<<endl;
+            databaru<<"|"<<left<<setfill(' ')<<setw(4)<<" No"<<"|"<<setw(12)<<" No Antrian"<<"|"<<setw(11)<<" NIM"<<"|"<<setw(26)<<" Nama Jamaah"<<"|"<<setw(22)<<" Jurusan"<<"|"<<endl;
+            databaru<<right<<"+"<<setfill('-')<<setw(5)<<"+"<<setw(13)<<"+"<<setw(12)<<"+"<<setw(27)<<"+"<<setw(23)<<"+"<<endl;
+            for(int i = 0; i < jumlahjamaah; i++){
+                databaru<<"| "<<left<<setfill(' ')<<setw(3)<<i+1<<"| "<<setw(11)<<mentah[i].noantrian<<"| "<<setw(10)<<mentah[i].nim<<"| "<<setw(25)<<mentah[i].nama<<"| "<<setw(21)<<mentah[i].jurusan<<"|"<<endl;  
+            }
+            databaru<<right<<"+"<<setfill('-')<<setw(5)<<"+"<<setw(13)<<"+"<<setw(12)<<"+"<<setw(27)<<"+"<<setw(23)<<"+"<<endl;
+            databaru.close();
+            exit(0);
+            break;
+        
+            default:
+            break;
+            }
+        } while (piladmin != 0);
+}
+
+void menueditdata(string namafile, string filementah, string datakecilmentah){
+    int piladmin, index1 = 0, index2 = 0;
+    string line1, line2;
+    ifstream filelama(filementah);
+    while (getline(filelama, line1)){
+        stringstream ss(line1);
+        string temp;
+        getline(ss, temp, ','); pengambil[index1].noantrian = stoi(temp);
+        getline(ss, temp, ','); pengambil[index1].nim = stoi(temp);
+        getline(ss, temp, ','); pengambil[index1].nama = temp;
+        getline(ss, temp, ','); pengambil[index1].jurusan = temp;
+        mentah[index1].noantrian = pengambil[index1].noantrian;
+        mentah[index1].nim = pengambil[index1].nim;
+        mentah[index1].nama = pengambil[index1].nama;
+        mentah[index1].jurusan = pengambil[index1].jurusan;
+        index1++;
+    }
+    filelama.close();
+    ifstream datakecil (datakecilmentah);
+    while (getline(datakecil, line2)){
+        stringstream ss(line2);
+        string temp;
+        getline(ss, temp, ','); takjil.tgl.hari = stoi(temp);
+        getline(ss, temp, ','); takjil.tgl.bulan = stoi(temp);
+        getline(ss, temp, ','); takjil.tgl.tahun = stoi(temp);
+        getline(ss, temp, ','); takjil.namamenu = temp;
+        getline(ss, temp, ','); takjil.jumlah = stoi(temp);
+        getline(ss, temp, ','); jumlahjamaah = stoi(temp);
+        getline(ss, temp, ','); k = stoi(temp);
+        index2++;
+    }
+    do {
+        cout<<"\n[PROGRAM BERBAGI RAMADHAN MASJID SABRINI]\n";
+        cout << "Takjil Masjid Sabrini pada tanggal "<< takjil.tgl.hari<<"/"<<takjil.tgl.bulan<<"/"<<takjil.tgl.tahun<<endl;
+        cout << "Penerima Takjil Masjid Sabrini\n";
+        cout << "1. Input Data Jamaah Penerima Takjil\n";
+        cout << "2. Data Jamaah Penerima Takjil\n";
+        cout << "3. Pencarian Data Penerima Takjil\n";
+        cout << "4. Sortir Data Penerima Takjil\n";
+        cout << "0. Keluar\n";
+        cout << "Pilihan admin : ";
+        cin >> piladmin;
+        switch (piladmin) {
+            case 1:
+            inputjamaah(namafile, filementah, datakecilmentah);
+            break;
+                        
+            case 2:
+            datajamaah();
+            system("pause");
+            break;
+        
+            case 3:
+            searchingjamaah();
+            system("pause");
+            break;
+        
+            case 4:
+            sortingjamaah(namafile);
+            system("pause");
+            break;
+        
+            case 0:
+            exit(0);
+            break;
+        
+            default:
+            break;
+            }
+        } while (piladmin != 0);
+}
+
+void menufile(char *kembali){
+    int menufile;
+    string namafile, filementah, datakecilmentah;
+    char buffer[256];
+    FILE *log;
+    cout<<"[PENDATAAN PENERIMA TAKJIL MASJID SABRINI]\n";
+    cout<<"Silahkan input menu untuk mengakses dan menyimpan data jamaah :\n";
+    cout<<"1. Lihat Riwayat Pendataan.\n";
+    cout<<"2. Create Data Baru\n";
+    cout<<"3. Edit Data\n";
+    cout<<"0. Keluar\n";
+    cout<<"Pilih menu : "; cin>>menufile;
+    switch(menufile){
+        case 1:
+        log = fopen("log.txt", "r");
+        if (log == NULL){
+            printf("Belum ada riwayat file yang dibuat.\n");
+            printf("Ingin kembali? (y/n) : "); cin>>*kembali;
+            break;
+        }
+        cout<<"Berikut adalah nama-nama file yang sudah Anda buat sebelumnya :\n";
+        while(fgets(buffer, sizeof(buffer), log)){
+            printf("%s", buffer);
+        }
+        fclose(log);
+        cout<<"\nKembali ke menu? (y/n) : "; cin>>*kembali;
+        break;
+
+        case 2:
+        cout<<"[CREATE DATA]\n";
+        cout<<"Silahkan masukkan nama file yang akan dibuat.\n";
+        cout<<"(ex : haripertama)\n";
+        cout<<"Nama file : ";
+        log = fopen("log.txt", "a");
+        if(log == NULL)
+        {
+           printf("Error!");   
+           exit(1);             
+        }
+        cin>>namafile;
+        filementah = "data" + namafile + ".csv";
+        datakecilmentah = "datakecilmentah" + namafile + ".csv";
+        namafile = namafile + ".txt";
+        fputs((namafile + "/n").c_str(), log);
+        fclose(log);
+        menucreatedata(namafile, filementah, datakecilmentah);
+        break;
+
+        case 3:
+        cout<<"[EDIT DATA]\n";
+        cout<<"Silahkan input nama file yang telah dibuat sebelumnya.\n";
+        cout<<"Note : Jika lupa nama file silahkan lihat di menu lihat riwayat pendatataan.\n";
+        cout<<"(ex : haripertama)\n";
+        cout<<"Masukkan nama file : "; cin>>namafile;
+        filementah = "data" + namafile + ".csv"; 
+        datakecilmentah = "datakecilmentah" + namafile + ".csv";
+        namafile = namafile + ".txt";
+        menueditdata(namafile, filementah, datakecilmentah);
+        fclose(log);
+        break;
+
+        case 0:
+        fclose(log);
+        exit(0);
+        break;
+
+        default:
+        break;
+    }
+}
 
 int main() {
     system("cls");
     string username, pass;
+    char kembali;
     bool login = false;
-    int chance = 4, menu, piladmin;
+    int chance = 4, menu;
     do {
         cout<<"   Selamat Datang!    "<<endl;
         cout<<"     LOGIN ADMIN      "<<endl;
@@ -1016,46 +1233,9 @@ int main() {
         cout<<"Password\t: "; cin>>pass;
         if (username == "admin" && pass == "123"){
             login = true;
-            inputmakan();
             do {
-                cout<<"\n[PROGRAM BERBAGI RAMADHAN MASJID SABRINI]\n";
-                cout << "Takjil Masjid Sabrini pada tanggal "<< takjil.tgl.hari<<"/"<<takjil.tgl.bulan<<"/"<<takjil.tgl.tahun<<endl;
-                cout << "Penerima Takjil Masjid Sabrini\n";
-                cout << "1. Input Data Jamaah Penerima Takjil\n";
-                cout << "2. Data Jamaah Penerima Takjil\n";
-                cout << "3. Pencarian Data Penerima Takjil\n";
-                cout << "4. Sortir Data Penerima Takjil\n";
-                cout << "0. Keluar\n";
-                cout << "Pilihan admin : ";
-                cin >> piladmin;
-                switch (piladmin) {
-                    case 1:
-                    inputjamaah();
-                    break;
-                    
-                    case 2:
-                    datajamaah();
-                    system("pause");
-                    break;
-    
-                    case 3:
-                    searchingjamaah();
-                    system("pause");
-                    break;
-    
-                    case 4:
-                    sortingjamaah();
-                    system("pause");
-                    break;
-    
-                    case 0:
-                    exit(0);
-                    break;
-    
-                    default:
-                    break;
-                }
-            } while (piladmin != 0);
+                menufile(&kembali);
+            } while (kembali == 'y' || kembali == 'Y');
         } else {
             cout<<"Maaf, username yang Anda masukkan salah."<<endl;
             cout<<"Kesempatan login yang tersisa adalah "<<chance-1<<"."<<endl<<endl;
