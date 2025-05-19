@@ -171,14 +171,15 @@ void datajamaah() {
     }
 
 }
-bool ditemukan=false;
+bool ditemukan;
 void metodenourut(){
+    ditemukan = false;
     int nourutjam,b,n,h;
- cout<<"[PENCARIAN DATA PENERIMA TAKJIL Terurut]\n";
+    cout<<"[PENCARIAN DATA PENERIMA TAKJIL Terurut]\n";
     cout<<"Pilih metode pencarian :\n";
     cout<<"1. Metode Sequential Sentinel\n";
     cout<<"2. Metode Sequential Non-Sentinel\n";
-    cout<<"3.Binary\n";
+    cout<<"3. Binary\n";
     cout<<"Pilih metode : "; cin>>metodecari;
     
     switch (metodecari)
@@ -236,10 +237,10 @@ void metodenourut(){
             else{
                 if (nourutjam < mentah[h].noantrian)
                 {
-                    b=h-1;
+                    n=h-1;
                 }
                 else{
-                    b=n+1;
+                    b=h+1;
                 }
                 
             }
@@ -260,7 +261,7 @@ void metodenourut(){
     }
 }
 void metodecarinimurut(){
-    
+    ditemukan = false;
     int j=0,t,l;
  cout<<"[PENCARIAN DATA PENERIMA TAKJIL Terurut]\n";
     cout<<"Pilih metode pencarian :\n";
@@ -324,10 +325,10 @@ void metodecarinimurut(){
             else{
                 if (t < mentah[v].nim)
                 {
-                    j=v-1;
+                    l=v-1;
                 }
                 else{
-                    j=l+1;
+                    j=v+1;
                 }
                 
             }
@@ -396,7 +397,7 @@ void metodecarinimtidakurut(){
                 i = i+1;
             }
          }
-          if(found) {cout<<"tidak ada jamaah dengan nim "<< y << "dalam data masjid "<<endl;}
+          if(!found) {cout<<"tidak ada jamaah dengan nim "<< y << "dalam data masjid "<<endl;}
             else{
             cout<<"data ditemukan \n";
             cout<<"Nama Jamaah : "<<pengambil[i].nama;
@@ -419,7 +420,7 @@ void searchingjamaah(){
     cout<<"Pilihan Admin : "; cin>>viacari;
     switch(viacari){
         case 1:
-        
+        metodenourut();
         break;
 
         case 2:
@@ -1192,7 +1193,7 @@ void menufile(char *kembali){
         filementah = "data" + namafile + ".csv";
         datakecilmentah = "datakecilmentah" + namafile + ".csv";
         namafile = namafile + ".txt";
-        fputs((namafile + "/n").c_str(), log);
+        fputs((namafile + "\n").c_str(), log);
         fclose(log);
         menucreatedata(namafile, filementah, datakecilmentah);
         break;
